@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FR170 Food Tracker Mockup</title>
+<style>
+@font-face{font-family:"Roboto Condensed";src:url("assets/RobotoCondensed.ttf");font-weight:100 900}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#202323;color:#f2f0ea;font-family:"Roboto Condensed",Arial Narrow,sans-serif;-webkit-tap-highlight-color:transparent}
+.wrap{display:grid;justify-items:center;gap:18px;padding:24px 0}
+.watch{position:relative;width:390px;height:390px;border-radius:50%;overflow:hidden;background:#000;box-shadow:0 0 0 12px #111,0 0 0 14px #353838}
+.watch>*{position:absolute}
+.hour,.minute{right:168px;font-size:120px;line-height:1;font-weight:700;letter-spacing:0;text-align:right}
+.hour{top:47px}.minute{top:145px}
+.date{left:74px;top:258px;width:150px;font-size:21px;line-height:28px;font-weight:700;text-align:right;white-space:nowrap}
+.vrule{left:235px;top:72px;width:2px;height:180px;background:#5a5a5a}
+.hrule{left:74px;top:291px;width:245px;height:2px;background:#5a5a5a}
+.food{left:253px;top:83px;width:72px;height:184px;display:grid;grid-template-rows:repeat(3,56px);gap:8px}
+.food button{position:relative;width:72px;height:56px;border:0;border-radius:6px;background:transparent;padding:0;cursor:pointer}
+.food img{width:44px;height:44px;object-fit:contain;transition:transform .12s}
+.food button:active img{transform:scale(.88)}
+.food button[data-count]:not([data-count="0"])::after{content:attr(data-count);position:absolute;right:2px;bottom:3px;min-width:18px;height:18px;border-radius:9px;background:#e7283e;color:#fff;font:700 13px/18px "Roboto Condensed",sans-serif;text-align:center}
+.field{top:316px;width:110px;text-align:center}
+.field.left{left:80px}.field.right{left:200px}
+.label{position:relative;font-size:20px;line-height:1;color:#e7283e;font-weight:700}
+.value{position:relative;margin-top:7px;font-size:32px;line-height:1;font-weight:700}
+.split{left:194px;top:305px;width:2px;height:55px;background:#5a5a5a}
+.summary{display:grid;grid-template-columns:repeat(3,72px);gap:8px;text-align:center;color:#aaa;font:14px system-ui}
+.summary strong{display:block;color:#f2f0ea;font:700 22px "Roboto Condensed",sans-serif}
+.small{font:12px system-ui;color:#999;max-width:390px;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="watch" aria-label="Forerunner 170 food tracker mockup">
+    <div class="hour">10</div><div class="minute">09</div>
+    <div class="date">MONDAY 05 OCT</div>
+    <div class="vrule"></div><div class="hrule"></div>
+    <div class="food">
+      <button data-count="0" data-kind="snack" title="Log snack" aria-label="Log snack"><img src="assets/snack.png" alt=""></button>
+      <button data-count="0" data-kind="meal" title="Log meal" aria-label="Log meal"><img src="assets/meal.png" alt=""></button>
+      <button data-count="0" data-kind="beverage" title="Log beverage" aria-label="Log beverage"><img src="assets/beverage.png" alt=""></button>
+    </div>
+    <div class="split"></div>
+    <div class="field left"><div class="label">STEPS</div><div class="value">8.4K</div></div>
+    <div class="field right"><div class="label">BATTERY</div><div class="value">79%</div></div>
+    
+  </section>
+  <div class="summary" aria-label="Today">
+    <div><strong id="snackCount">0</strong>snacks</div><div><strong id="mealCount">0</strong>meals</div><div><strong id="beverageCount">0</strong>drinks</div>
+  </div>
+  <p class="small">Emoji: Microsoft Fluent Emoji, MIT License. Font: Roboto Condensed, OFL.</p>
+</main>
+<script>
+const counts={snack:0,meal:0,beverage:0};
+document.querySelectorAll("[data-kind]").forEach(button=>button.addEventListener("click",()=>{
+  const kind=button.dataset.kind; counts[kind]++; button.dataset.count=counts[kind]; document.getElementById(kind+"Count").textContent=counts[kind];
+}));
+</script>
+</body>
+</html>
